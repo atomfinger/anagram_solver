@@ -31,7 +31,7 @@ public class Main {
         return new AnagramFileReader(matcher, lineReader);
     }
 
-    private AnagramWriter getWriter() {
+    private AnagramPrintStreamWriter getWriter() {
         val printStream = new AnagramPrintStreamImpl(System.out);
         return new AnagramPrintStreamWriter(printStream);
     }

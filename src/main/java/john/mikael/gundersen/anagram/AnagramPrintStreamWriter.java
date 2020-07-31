@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class AnagramPrintStreamWriter implements AnagramWriter {
+public class AnagramPrintStreamWriter {
 
     private final AnagramPrintStream out;
-
-    @Override
+    
     public void write(List<Anagram> anagrams) {
         anagrams.stream()
                 .map(anagram -> String.join(" ", anagram.getWords()))
