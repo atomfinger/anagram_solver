@@ -9,19 +9,19 @@ import java.util.List;
 
 public class WordSortAnagramMatcher implements AnagramMatcher {
 
-    public List<List<String>> findAnagrams(List<String> words) {
-        val wordMap = new HashMap<String, List<String>>();
+    public List<Anagram> findAnagrams(List<String> words) {
+        val wordMap = new HashMap<String, Anagram>();
         for (val word : words) {
             val key = findKeyBasedOnWord(word);
             if (!wordMap.containsKey(key))
-                wordMap.put(key, new ArrayList<>());
+                wordMap.put(key, new Anagram());
             wordMap.get(key).add(word);
         }
         return new ArrayList<>(wordMap.values());
     }
 
     private String findKeyBasedOnWord(String word) {
-        val charArray = word.toCharArray();
+        val charArray = word.toLowerCase().toCharArray();
         Arrays.sort(charArray);
         return String.valueOf(charArray);
     }

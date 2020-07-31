@@ -12,16 +12,16 @@ class WordSortAnagramMatcherSpec extends Specification {
         when:
             def result = anagramMatcher.findAnagrams(words)
         then:
-            result.flatten() == ["pear", "orange", "apple"]
+            result.containsAll(new Anagram("apple"), new Anagram("pear"), new Anagram("orange"))
     }
 
-    def 'list of anagrams should be in the same list'() {
+    def 'list of anagrams should be grouped together'() {
         given:
             def words = ["apple", "aplpe", "elppa"]
         when:
             def result = anagramMatcher.findAnagrams(words)
         then:
-            result == [["apple", "aplpe", "elppa"]]
+            result == [new Anagram("apple", "aplpe", "elppa")]
     }
 
     def 'list of different words where some are anagrams must bundle those anagrams together'() {
@@ -30,6 +30,15 @@ class WordSortAnagramMatcherSpec extends Specification {
         when:
             def result = anagramMatcher.findAnagrams(words)
         then:
-            result == [["pear"], ["apple", "elppa"]]
+            result.containsAll(new Anagram("pear"), new Anagram("apple", "elppa"))
+    }
+
+    def "must be able to match lower and upper case characters"() {
+        given:
+            def words = ["APPLE", "apple", "elPPa"]
+        when:
+            def result = anagramMatcher.findAnagrams(words)
+        then:
+            result.contains(new Anagram("APPLE", "apple", "elPPa"))
     }
 }
